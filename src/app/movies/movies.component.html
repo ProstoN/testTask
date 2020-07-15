@@ -1,0 +1,44 @@
+<!--<h2>My Movies</h2>-->
+
+<!--<div>-->
+<!--  <label>MovieDetail name:-->
+<!--    <input #movieName />-->
+<!--  </label>-->
+<!--</div>-->
+
+<!--<ul class="movies">-->
+<!--  <li *ngFor="let movie of movies">-->
+<!--    <a routerLink="/detail/{{movie.id}}">-->
+<!--      <span class="badge">{{movie.id}}</span> {{movie.title}}-->
+<!--    </a>-->
+<!--  </li>-->
+<!--</ul>-->
+<div *ngFor="let movie of movies">
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-title">
+              <h2>{{ movie.title }}</h2>
+            </div>
+          </div>
+          <div class="col-md-3">
+<!--            <p><img src="{{ posterUrl }}"  class="rounded mx-auto d-block"></p>-->
+          </div>
+          <div class="col-md-3">
+            <p><strong>Average vote: </strong>{{ movie.vote_average }}</p>
+            <p><strong>Relase date: </strong>{{ movie.release_date }}</p>
+            <p><strong>Popularity: </strong>{{ movie.popularity }}</p>
+            <p><strong>Votes: </strong>{{ movie.vote_count }}</p>
+<!--            <button class="btn btn-primary" (click)="changeButton()">{{ displayButton }}</button>-->
+          </div>
+          <div class="col-md-6" >
+<!--            <app-movie-details [movie]="movie"></app-movie-details>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
