@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MoviesComponent } from "./movies/movies.component";
-import { MovieDetailComponent } from "./movie-detail/movie-detail.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import {MoviesListComponent} from './movies-list/movies-list.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: MovieDetailComponent },
-  { path: 'movies', component: MoviesComponent }
+  { path: '', component: MoviesListComponent },
+  { path: 'detail/:id', component: MovieDetailComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

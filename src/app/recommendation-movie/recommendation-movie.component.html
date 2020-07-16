@@ -1,0 +1,13 @@
+<div>
+  <div class="col-md-12">
+  </div>
+  <div class="col-md-10">
+    <p class="recom-bottom"><img src="{{ poster }}" class="rounded "></p>
+    <p class="text-overflow recom-bottom">{{movie.title}}</p>
+    <p>
+      <button class="btn btn-primary" routerLink="/detail/{{movie.id}}">Open detail</button>
+    </p>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+

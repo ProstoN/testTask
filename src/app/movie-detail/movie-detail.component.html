@@ -1,11 +1,36 @@
-<div *ngIf="movie">
-  <h2>{{movie.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{movie.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="movie.name" placeholder="name"/>
-    </label>
+<button class="btn btn-primary page"  routerLink="" >Back to list</button>
+<div *ngIf="!isSearch">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-title">
+            <h2 class="title">{{ movie.title }}</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <p><img src="{{ poster }}"  class="rounded mx-auto d-block"></p>
+        </div>
+        <div class="col-md-9">
+          <p><strong>Tagline: </strong>{{ movie.tagline }}</p>
+          <p><strong>Average vote: </strong>{{ movie.vote_average }}</p>
+          <p><strong>Release date: </strong>{{ movie.release_date }}</p>
+          <p><strong>Popularity: </strong>{{ movie.popularity }}</p>
+          <p *ngIf="movie.budget !== 0"><strong>Budget: </strong>${{ movie.budget }}</p>
+          <p><strong>Genre: </strong><span *ngFor="let genre of movie.genres; let lastItem = last">{{genre.name}}<span *ngIf="!lastItem">, </span></span></p>
+          <p><strong>Production countries: </strong><span *ngFor="let country of movie.production_countries; let lastItem = last">{{ country.name }}<span *ngIf="!lastItem">, </span></span></p>
+          <p><strong>Overview : </strong>{{ movie.overview }}</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
+  <h2>Recommendation list</h2>
+  <br>
+  <app-recommendation-movie-list [movieId]="movie.id"></app-recommendation-movie-list>
 </div>
+<div *ngIf="isSearch">
+  <div *ngFor="let movie of moviesList">
+    <app-movies [genreListIds]="movie.genre_ids" [movie]="movie"></app-movies>
+  </div>
+</div>
+

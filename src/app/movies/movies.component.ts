@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from "../movie.service";
-import { Movie } from "../models/movie";
+import {Component, Input, OnInit} from '@angular/core';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-movies',
@@ -9,17 +8,39 @@ import { Movie } from "../models/movie";
 })
 export class MoviesComponent implements OnInit {
 
-  movies: Movie[];
+  @Input() movie;
+  @Input() genreListIds;
+  poster: string;
+  display = false;
+  genres = [];
 
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    this.getMovies()
+    this.getPoster();
+    this.getGenres();
   }
 
-  getMovies(): void {
-    this.movieService.getMovies().subscribe(
-      movies => this.movies = movies.results)
+  getGenres(): void {
+    this.movieService.getGenres().subscribe(
+      genresList => {
+        for (const genreId of this.genreListIds){
+          for (const genre of genresList.genres){
+            if (genreId === genre.id){
+              this.genres.push(genre.name);
+            }
+          }
+        }
+      }
+    );
+  }
+
+  public getPoster(): void {
+    if (this.movie.poster_path === null) {
+      this.poster = 'http://via.placeholder.com/154x218?text=Not+avaliable';
+    } else {
+      this.poster = this.movieService.imageBaseURL + this.movie.poster_path;
+    }
   }
 }

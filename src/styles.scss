@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/dist/css/bootstrap.css";
 body {
   background-color: rgb(255, 255, 255);
 }
@@ -14,7 +12,29 @@ nav {
 .card {
   margin: 0 0 20px 0;
   padding: 10px;
-  box-shadow: 0 4px 14px 2px #94a0a1;
+  //box-shadow: 0 4px 14px 2px #94a0a1;
+}
+
+.text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}
+
+.page {
+  margin: 20px 20px 20px 0;
+}
+
+.title {
+  margin: 0 0 0 45px;
+}
+
+.recom-list {
+  margin: 0 0 45px 0;
+}
+
+.recom-bottom {
+  margin: 0 0 10px 0;
 }
 
 footer {
