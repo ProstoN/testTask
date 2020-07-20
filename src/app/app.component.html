@@ -1,12 +1,16 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-light">
+<nav class="navbar navbar-toggleable-md navbar-light bg-light" id="target">
   <div class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      <li class="nav-item active">
+        <button class="btn btn-outline-info button-cursor" routerLink="/favorites">Favorites</button>
+      </li>
+    </ul>
     <form class="form-inline my-2 my-lg-0">
       <input [(ngModel)]="filter"
-             (keyup.enter)="search(filter)"
              name="search"
              class="form-control mr-sm-2"
              type="search" placeholder="Find movie...">
-      <button class="btn btn-info my-2 my-sm-0" (click)="search(filter)">Search</button>
+      <button (keyup.enter)="search(filter)" class="btn btn-info my-2 my-sm-0 button-cursor" (click)="search(filter)">Search</button>
     </form>
   </div>
 </nav>
