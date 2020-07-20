@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { MovieService } from "../../../movie.service";
-import { Router } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { MovieService } from '../../../movie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fav-film',
@@ -22,7 +22,7 @@ export class FavFilmComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPoster();
-    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem("favorites")), this.movie.id)
+    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem('favorites')), this.movie.id);
   }
 
   public getPoster(): void {
@@ -33,11 +33,11 @@ export class FavFilmComponent implements OnInit {
     }
   }
 
-  removeFromFavorite(movieId: number) {
+  removeFromFavorite(movieId: number): void {
     this.isAdd = !this.isAdd;
-    const favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
+    const favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
     const updateFavoritesMovie = favoritesMovies.filter(id => movieId !== id);
-    localStorage.setItem("favorites", JSON.stringify(updateFavoritesMovie));
+    localStorage.setItem('favorites', JSON.stringify(updateFavoritesMovie));
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };

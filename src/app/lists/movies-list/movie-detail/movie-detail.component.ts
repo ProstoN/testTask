@@ -36,7 +36,7 @@ export class MovieDetailComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
-    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem("favorites")), +this.route.snapshot.paramMap.get('id'));
+    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem('favorites')), +this.route.snapshot.paramMap.get('id'));
   }
 
   getMovie(): void {
@@ -62,19 +62,19 @@ export class MovieDetailComponent implements OnInit {
       );
   }
 
-  addToFavorite(movieId: number) {
+  addToFavorite(movieId: number): void {
     this.isAdd = !this.isAdd;
     let favoritesMovies
-    favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
+    favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
     const updateFavoritesMovie = this.updateFavoritesMovie(favoritesMovies, movieId);
-    localStorage.setItem("favorites", JSON.stringify(updateFavoritesMovie));
+    localStorage.setItem('favorites', JSON.stringify(updateFavoritesMovie));
   }
 
-  removeFromFavorite(movieId: number) {
+  removeFromFavorite(movieId: number): void {
     this.isAdd = !this.isAdd;
-    const favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
+    const favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
     const updateFavoritesMovie = favoritesMovies.filter(id => movieId !== id);
-    localStorage.setItem("favorites", JSON.stringify(updateFavoritesMovie));
+    localStorage.setItem('favorites', JSON.stringify(updateFavoritesMovie));
   }
 
   private updateFavoritesMovie(arrayIds: number[], movieId: number): number[]{

@@ -30,7 +30,7 @@ export class MoviesListComponent implements OnInit {
     this.getMovies(this.currentPage);
   }
 
-  scroll(id) {
+  scroll(id): void {
     this.vps.scrollToAnchor(id);
   }
 
@@ -50,7 +50,7 @@ export class MoviesListComponent implements OnInit {
       this.currentPage -= 1;
     }
     if (target !== undefined){
-      this.scroll(target)
+      this.scroll(target);
     }
   }
 

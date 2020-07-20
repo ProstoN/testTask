@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MovieService } from "../../movie.service";
-import { MovieDetail } from "../../models/movie-detail";
+import { MovieService } from '../../movie.service';
+import { MovieDetail } from '../../models/movie-detail';
 
 @Component({
   selector: 'app-favorite-movies',
@@ -14,20 +14,20 @@ export class FavoriteMoviesComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    this.getMovies()
+    this.getMovies();
   }
 
   getMovies(): void {
-    const favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
-    for (let id of favoritesMovies) {
-      this.getMovie(id)
+    const favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
+    for (const id of favoritesMovies) {
+      this.getMovie(id);
     }
   }
 
   getMovie(id: number): void {
     this.movieService.getMovie(id)
       .subscribe(movie => {
-        this.moviesList.push(movie)
+        this.moviesList.push(movie);
       });
   }
 }
