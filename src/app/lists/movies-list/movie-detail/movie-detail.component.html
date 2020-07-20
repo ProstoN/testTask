@@ -1,15 +1,17 @@
-<button class="btn btn-primary page"  routerLink="" >Back to list</button>
+<button class="btn btn-secondary page button-cursor" routerLink="" >Back to list</button>
 <div *ngIf="!isSearch">
   <div class="card">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
           <div class="card-title">
-            <h2 class="title">{{ movie.title }}</h2>
+            <h2 style="margin: 0 0 0 45px">{{ movie.title }}</h2>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 ">
           <p><img src="{{ poster }}"  class="rounded mx-auto d-block"></p>
+          <button *ngIf="!isAdd" class="btn btn-primary button-cursor mx-auto d-block" (click)="addToFavorite(movie.id)" > + Add to favorites</button>
+          <button *ngIf="isAdd" class="btn btn-secondary button-cursor mx-auto d-block" (click)="removeFromFavorite(movie.id)"> ✓ Added to favorites</button>
         </div>
         <div class="col-md-9">
           <p><strong>Tagline: </strong>{{ movie.tagline }}</p>

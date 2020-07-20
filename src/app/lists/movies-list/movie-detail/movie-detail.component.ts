@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { MovieDetail } from '../models/movie-detail';
+import { MovieDetail } from '../../../models/movie-detail';
 import {ActivatedRoute, Router} from '@angular/router';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../../../movie.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -16,6 +16,7 @@ export class MovieDetailComponent implements OnInit {
   listName = 'popular';
   moviesList = [];
   isSearch = false;
+  isAdd: boolean;
 
   constructor(
     private location: Location,
@@ -23,7 +24,7 @@ export class MovieDetailComponent implements OnInit {
     private movieService: MovieService,
     private router: Router
   ) {
-    movieService.searchFilterEmited$.subscribe(
+    movieService.searchFilterEmitted$.subscribe(
       filter => {
         this.search(filter);
         this.listName = 'Search results of: ' + filter;
@@ -35,6 +36,7 @@ export class MovieDetailComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem("favorites")), +this.route.snapshot.paramMap.get('id'));
   }
 
   getMovie(): void {
@@ -42,17 +44,12 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovie(id)
       .subscribe(movie => {
         this.movie = movie;
-        console.log(movie)
         if (movie.poster_path === null) {
           this.poster = 'http://via.placeholder.com/154x218?text=Not+avaliable';
         } else {
           this.poster = this.movieService.imageBaseURL + movie.poster_path;
         }
       });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   search(query): void {
@@ -65,8 +62,29 @@ export class MovieDetailComponent implements OnInit {
       );
   }
 
-  save(): void {
-    this.movieService.updateMovie(this.movie)
-      .subscribe(() => this.goBack());
+  addToFavorite(movieId: number) {
+    this.isAdd = !this.isAdd;
+    let favoritesMovies
+    favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
+    const updateFavoritesMovie = this.updateFavoritesMovie(favoritesMovies, movieId);
+    localStorage.setItem("favorites", JSON.stringify(updateFavoritesMovie));
+  }
+
+  removeFromFavorite(movieId: number) {
+    this.isAdd = !this.isAdd;
+    const favoritesMovies = JSON.parse(localStorage.getItem("favorites"));
+    const updateFavoritesMovie = favoritesMovies.filter(id => movieId !== id);
+    localStorage.setItem("favorites", JSON.stringify(updateFavoritesMovie));
+  }
+
+  private updateFavoritesMovie(arrayIds: number[], movieId: number): number[]{
+    if (arrayIds.filter(id => movieId === id).length === 0){
+      arrayIds.push(movieId);
+    }
+    return arrayIds;
+  }
+
+  private checkMovieIntoFavorites(arrayIds: number[], movieId: number): boolean {
+    return arrayIds.filter(id => movieId === id).length !== 0;
   }
 }

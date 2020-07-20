@@ -4,19 +4,21 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card-title">
-            <h2 class="title">{{ movie.title }}</h2>
+            <h2>{{ movie.title }}</h2>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <p><img src="{{ poster }}"  class="rounded mx-auto d-block"></p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <p><strong>Average vote: </strong>{{ movie.vote_average }}</p>
           <p><strong>Relase date: </strong>{{ movie.release_date }}</p>
           <p><strong>Popularity: </strong>{{ movie.popularity }}</p>
           <p><strong>Votes: </strong>{{ movie.vote_count }}</p>
           <p><strong>Genre: </strong><span *ngFor="let genre of genres; let lastItem = last">{{genre}}<span *ngIf="!lastItem">, </span></span></p>
-          <button class="btn btn-primary" routerLink="/detail/{{movie.id}}">Open detail</button>
+          <button class="btn btn-secondary button-cursor"  routerLink="/detail/{{movie.id}}">Open detail</button>
+          <button *ngIf="!isAdd" class="btn btn-primary button-cursor" style="margin: 0 0 0 10px" (click)="addToFavorite(movie.id)"      > + Add to favorites</button>
+          <button *ngIf="isAdd" class="btn btn-secondary button-cursor" style="margin: 0 0 0 10px" (click)="removeFromFavorite(movie.id)"> ✓ Added to favorites</button>
         </div>
         <div class="col-md-5 text-justify" >
           <p>{{ movie.overview }}</p>

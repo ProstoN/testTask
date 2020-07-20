@@ -1,0 +1,7 @@
+<button class="btn btn-secondary page button-cursor" *ngIf="currentPage !== 1"  (click)="loadMovie(false)" >Load previous</button>
+<button class="btn btn-secondary page button-cursor"  (click)="loadMovie(true)" >Load next</button>
+<div *ngFor="let movie of moviesList">
+  <app-movies [genreListIds]="movie.genre_ids" [movie]="movie"></app-movies>
+</div>
+<button class="btn btn-secondary page button-cursor" *ngIf="currentPage !== 1"  (click)="loadMovie(false, 'target')" >Load previous</button>
+<button class="btn btn-secondary page button-cursor" (click)="loadMovie(true, 'target')" >Load next</button>

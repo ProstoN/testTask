@@ -1,0 +1,5 @@
+<button class="btn btn-secondary page button-cursor"  routerLink="" >Back to list</button>
+<div *ngFor="let movie of moviesList">
+  <app-fav-film [movie]="movie"></app-fav-film>
+</div>
+<h1 *ngIf="moviesList.length === 0" class="align-content-center">No favorite movies</h1>

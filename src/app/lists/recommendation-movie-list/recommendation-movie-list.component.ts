@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MovieService} from '../movie.service';
+import {MovieService} from '../../movie.service';
 
 @Component({
   selector: 'app-recommendation-movie-list',
@@ -23,7 +23,6 @@ export class RecommendationMovieListComponent implements OnInit {
   getRecommendationMovies(): void {
     this.movieService.getRecommendationMovies(this.movieId).subscribe(
       movies => {
-        console.log(movies.results);
         this.moviesList = movies.results;
       });
   }

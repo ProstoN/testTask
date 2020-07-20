@@ -1,0 +1,13 @@
+<div>
+  <div class="col-md-12">
+  </div>
+  <div class="col-md-10">
+    <p class="button-cursor" style="margin: 0 0 10px 0;" routerLink="/detail/{{movie.id}}"><img src="{{ poster }}" class="rounded "></p>
+    <p title="{{movie.title}}" class="text-overflow" style="margin: 0 0 10px 0;">{{movie.title}}</p>
+    <p>
+      <button class="btn btn-secondary button-cursor" routerLink="/detail/{{movie.id}}">Open detail</button>
+    </p>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+

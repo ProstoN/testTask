@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MovieService} from '../movie.service';
+import {MovieService} from '../../movie.service';
+import { ViewportScroller } from "@angular/common";
 
 @Component({
   selector: 'app-movies-list',
@@ -15,16 +16,22 @@ export class MoviesListComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
+    private vps: ViewportScroller
   ) {
-    movieService.searchFilterEmited$.subscribe(
+    movieService.searchFilterEmitted$.subscribe(
       filter => {
         this.search(filter);
         this.listName = 'Search results of: ' + filter;
       });
   }
 
+
   ngOnInit(): void {
     this.getMovies(this.currentPage);
+  }
+
+  scroll(id) {
+    this.vps.scrollToAnchor(id);
   }
 
   getMovies(page: number): void {
@@ -34,13 +41,16 @@ export class MoviesListComponent implements OnInit {
       });
   }
 
-  loadMovie(nextPage: boolean): void {
+  loadMovie(nextPage: boolean, target?: string): void {
     if (nextPage){
       this.getMovies(this.currentPage + 1);
       this.currentPage += 1;
     } else {
       this.getMovies(this.currentPage - 1);
       this.currentPage -= 1;
+    }
+    if (target !== undefined){
+      this.scroll(target)
     }
   }
 
