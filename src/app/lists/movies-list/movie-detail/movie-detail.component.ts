@@ -64,9 +64,14 @@ export class MovieDetailComponent implements OnInit {
 
   addToFavorite(movieId: number): void {
     this.isAdd = !this.isAdd;
-    let favoritesMovies
+    let favoritesMovies;
+    let updateFavoritesMovie;
     favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
-    const updateFavoritesMovie = this.updateFavoritesMovie(favoritesMovies, movieId);
+    if (favoritesMovies !== null) {
+      updateFavoritesMovie = this.updateFavoritesMovie(favoritesMovies, movieId);
+    } else {
+      updateFavoritesMovie = [movieId];
+    }
     localStorage.setItem('favorites', JSON.stringify(updateFavoritesMovie));
   }
 

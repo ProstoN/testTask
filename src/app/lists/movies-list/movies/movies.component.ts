@@ -24,7 +24,11 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
     this.getPoster();
     this.getGenres();
-    this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem('favorites')), this.movie.id);
+    if (JSON.parse(localStorage.getItem('favorites')) === null) {
+      this.isAdd = false;
+    } else {
+      this.isAdd = this.checkMovieIntoFavorites(JSON.parse(localStorage.getItem('favorites')), this.movie.id);
+    }
   }
 
   getGenres(): void {
@@ -51,9 +55,14 @@ export class MoviesComponent implements OnInit {
 
   addToFavorite(movieId: number): void {
     this.isAdd = !this.isAdd;
-    let favoritesMovies
+    let favoritesMovies;
+    let updateFavoritesMovie;
     favoritesMovies = JSON.parse(localStorage.getItem('favorites'));
-    const updateFavoritesMovie = this.updateFavoriteMovies(favoritesMovies, movieId);
+    if (favoritesMovies !== null) {
+      updateFavoritesMovie = this.updateFavoriteMovies(favoritesMovies, movieId);
+    } else {
+      updateFavoritesMovie = [movieId];
+    }
     localStorage.setItem('favorites', JSON.stringify(updateFavoritesMovie));
   }
 
